@@ -1,0 +1,19 @@
+[submodule "Plugins/CombatEnemySystem"]
+    path = Plugins/CombatEnemySystem
+    url = https://github.com/AnDreY-MA/CombatEnemySystem.git
+
+[submodule "Plugins\GameFeatures\CombatAbilitiesSystem"]
+    path = Plugins\GameFeatures\CombatAbilitiesSystem
+    url = https://github.com/AnDreY-MA/CombatAbilitiesSystem.git
+
+[submodule "Plugins\MamontInteractionSystem"]
+    path = Plugins\MamontInteractionSystem
+    url = https://github.com/AnDreY-MA/MamontInteractionSystem.git
+
+[submodule "Plugins\GameFeatures\MamontDialogue"]
+    path = Plugins\GameFeatures\MamontDialogue
+    url = https://github.com/AnDreY-MA/MamontDialogue.git
+
+[submodule "Plugins\MamontUI"]
+    path = Plugins\MamontUI
+    url = https://github.com/AnDreY-MA/MamontUI.git

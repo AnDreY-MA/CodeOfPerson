@@ -14,7 +14,7 @@ class CODEOFPERSON_API ACharacterBase : public AModularCharacter
 public:
 	explicit ACharacterBase(const FObjectInitializer& InInitializer);
 
-protected:
+protected:	
 	virtual void BeginPlay() override;
 
 };
