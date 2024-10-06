@@ -3,7 +3,7 @@
     url = https://github.com/AnDreY-MA/CombatEnemySystem.git
 
 [submodule "Plugins/GameFeatures/CombatAbilitiesSystem"]
-    path = Plugins\GameFeatures/CombatAbilitiesSystem
+    path = Plugins/GameFeatures/CombatAbilitiesSystem
     url = https://github.com/AnDreY-MA/CombatAbilitiesSystem.git
 
 [submodule "Plugins/MamontInteractionSystem"]
