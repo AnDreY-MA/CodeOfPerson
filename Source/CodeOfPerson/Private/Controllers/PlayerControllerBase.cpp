@@ -34,10 +34,6 @@ void APlayerControllerBase::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
 
-	if (InputSubsystem)
-	{
-		PlayerCharacter->InputType = InputSubsystem->GetCurrentInputType();
-	}
 }
 
 void APlayerControllerBase::OnHealthChanged(const FOnAttributeChangeData& OnAttributeChangeData)

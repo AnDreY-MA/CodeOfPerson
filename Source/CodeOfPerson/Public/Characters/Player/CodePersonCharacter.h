@@ -26,6 +26,8 @@ public:
 	explicit ACodePersonCharacter(const FObjectInitializer& InInitializer = FObjectInitializer::Get());
 
 	virtual void BeginPlay() override;
+
+	virtual void Tick(float DeltaTime) override;
 	
 	FORCEINLINE UCameraComponent* GetTopDownCameraComponent() const { return TopDownCameraComponent; }
 
@@ -41,6 +43,8 @@ public:
 private:
 	UFUNCTION(BlueprintCallable, Category="Movement")
 	void Move(const FInputActionValue& Value);
+
+	void CheckJumpHeigth();
 
 private:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
@@ -60,8 +64,17 @@ private:
 	
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="HealtWidget", meta=(AllowPrivateAccess="true"))
 	TObjectPtr<URoundWidget> HealthBarWidget;
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Input", meta=(AllowPrivateAccess="true"))
-	ECommonInputType InputType;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Movement|Jump")
+	double DistanceCkeckJump;
+	UPROPERTY(EditDefaultsOnly, Category = "Movement|Jump")
+	double HeigthJump;
+	UPROPERTY(EditDefaultsOnly, Category = "Movement|Jump")
+	double MinSpeedJump;
+	UPROPERTY(EditDefaultsOnly, Category = "Movement|Jump")
+	TEnumAsByte<ETraceTypeQuery> CheckJumpTraceType;
+	/*UPROPERTY(EditDefaultsOnly, Category = "Movement|Jump")
+	TEnumAsByte<EDrawDebugTrace::Type> CheckJumpDebug;*/
 
 	friend class APlayerControllerBase;
 	

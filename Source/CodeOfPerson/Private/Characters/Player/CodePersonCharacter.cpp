@@ -15,7 +15,7 @@
 #include "UMG/Widgets/RoundWidget.h"
 
 ACodePersonCharacter::ACodePersonCharacter(const FObjectInitializer& InInitializer) :
-	Super(InInitializer)
+	Super(InInitializer), DistanceCkeckJump(50.0), HeigthJump(150.0), MinSpeedJump(300.0) //, CheckJumpDebug(EDrawDebugTrace::None)
 {
 	// Set size for player capsule
 	GetCapsuleComponent()->InitCapsuleSize(42.f, 96.0f);
@@ -72,6 +72,11 @@ void ACodePersonCharacter::BeginPlay()
 
 }
 
+void ACodePersonCharacter::Tick(float DeltaTime)
+{
+	CheckJumpHeigth();
+}
+
 void ACodePersonCharacter::Move(const FInputActionValue& Value)
 {
 	if (Controller == nullptr) return;
@@ -79,10 +84,6 @@ void ACodePersonCharacter::Move(const FInputActionValue& Value)
 	const FRotator ControlRotation{ GetControlRotation() };
 
 	double YawOffset{0.0};
-	if(InputType == ECommonInputType::MouseAndKeyboard)
-	{
-		YawOffset = CameraBoom->GetComponentRotation().Yaw;
-	}
 
 	const FVector ForwardDirection{ UKismetMathLibrary::GetForwardVector(FRotator(0.0, ControlRotation.Yaw + YawOffset, 0.0)) };
 	const FVector RightDirection{ UKismetMathLibrary::GetRightVector(FRotator(0.0, ControlRotation.Yaw + YawOffset, 0.0)) };
@@ -90,4 +91,20 @@ void ACodePersonCharacter::Move(const FInputActionValue& Value)
 	AddMovementInput(ForwardDirection, Movement.Y);
 	AddMovementInput(RightDirection, Movement.X);
 
+}
+
+void ACodePersonCharacter::CheckJumpHeigth()
+{
+	const FVector Start{GetActorLocation() + GetActorForwardVector() * DistanceCkeckJump};
+	const FVector End{ Start - FVector(0.0, 0.0, HeigthJump) };
+
+	FHitResult HitResult;
+	const TArray<AActor*> IngoreActors{ this };
+	const bool bHitResult{ UKismetSystemLibrary::LineTraceSingle(GetWorld(), Start, End, CheckJumpTraceType, true, IngoreActors, EDrawDebugTrace::None, HitResult, true) };
+	
+	const bool bCanJump{ bHitResult == false && GetCharacterMovement()->IsFalling() == false && UKismetMathLibrary::VSize(GetVelocity()) > MinSpeedJump};
+	if (bCanJump)
+	{
+		Jump();
+	}
 }
