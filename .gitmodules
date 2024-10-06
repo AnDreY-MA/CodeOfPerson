@@ -10,8 +10,8 @@
     path = Plugins/MamontInteractionSystem
     url = https://github.com/AnDreY-MA/MamontInteractionSystem.git
 
-[submodule "Plugins\GameFeatures\MamontDialogue"]
-    path = Plugins/GameFeatures\MamontDialogue
+[submodule "Plugins/GameFeatures/MamontDialogue"]
+    path = Plugins/GameFeatures/MamontDialogue
     url = https://github.com/AnDreY-MA/MamontDialogue.git
 
 [submodule "Plugins/MamontUI"]
