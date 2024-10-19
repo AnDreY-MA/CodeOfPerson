@@ -83,7 +83,7 @@ void ACodePersonCharacter::Move(const FInputActionValue& Value)
 	const FVector2D Movement = Value.Get<FVector2D>();
 	const FRotator ControlRotation{ GetControlRotation() };
 
-	double YawOffset{0.0};
+	double YawOffset = CameraBoom->GetComponentRotation().Yaw;
 
 	const FVector ForwardDirection{ UKismetMathLibrary::GetForwardVector(FRotator(0.0, ControlRotation.Yaw + YawOffset, 0.0)) };
 	const FVector RightDirection{ UKismetMathLibrary::GetRightVector(FRotator(0.0, ControlRotation.Yaw + YawOffset, 0.0)) };
