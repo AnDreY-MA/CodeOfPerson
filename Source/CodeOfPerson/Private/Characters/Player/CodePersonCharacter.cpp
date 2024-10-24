@@ -44,11 +44,16 @@ ACodePersonCharacter::ACodePersonCharacter(const FObjectInitializer& InInitializ
 	TopDownCameraComponent->SetupAttachment(CameraBoom, USpringArmComponent::SocketName);
 	TopDownCameraComponent->bUsePawnControlRotation = false; // Camera does not rotate relative to arm
 
-	CombatWarpingComponent = CreateDefaultSubobject<UCombatWarpingComponent>("CombatWarpingComponent");
+	CombatWarping = CreateDefaultSubobject<UCombatWarpingComponent>("CombatWarp");
+
 	CameraControlComponent = CreateDefaultSubobject<UCameraControlComponent>("CameraControlComponent");
 
 	HealthBarComponent = CreateDefaultSubobject<UWidgetComponent>("HealthBarComponent");
 	HealthBarComponent->SetupAttachment(RootComponent);
+
+	RangardMeshComponent = CreateDefaultSubobject<USkeletalMeshComponent>("RangardMeshComponent");
+	RangardMeshComponent->SetupAttachment(RootComponent);
+	RangardMeshComponent->SetVisibility(false);
 
 	// Activate ticking in order to update the cursor every frame.
 	PrimaryActorTick.bCanEverTick = true;
@@ -75,6 +80,11 @@ void ACodePersonCharacter::BeginPlay()
 void ACodePersonCharacter::Tick(float DeltaTime)
 {
 	CheckJumpHeigth();
+}
+
+UCombatWarpingComponent* ACodePersonCharacter::GetCombatWarpingComponent_Implementation() const
+{
+	return CombatWarping;
 }
 
 void ACodePersonCharacter::Move(const FInputActionValue& Value)

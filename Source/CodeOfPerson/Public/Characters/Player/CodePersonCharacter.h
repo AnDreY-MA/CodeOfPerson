@@ -35,10 +35,7 @@ public:
 
 	//ICombatWarpComponentInterface Implementation
 
-	FORCEINLINE virtual UCombatWarpingComponent* GetCombatWarpingComponent_Implementation() const override
-	{
-		return CombatWarpingComponent.Get();
-	}
+	virtual UCombatWarpingComponent* GetCombatWarpingComponent_Implementation() const override;
 
 private:
 	UFUNCTION(BlueprintCallable, Category="Movement")
@@ -47,14 +44,17 @@ private:
 	void CheckJumpHeigth();
 
 private:
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Mesh, meta = (AllowPrivateAccess = "true"))
+	TObjectPtr<USkeletalMeshComponent> RangardMeshComponent;
+
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
 	TObjectPtr<UCameraComponent> TopDownCameraComponent;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
 	TObjectPtr<USpringArmComponent> CameraBoom;
 
-	UPROPERTY(EditDefaultsOnly, Category="Combat")
-	TObjectPtr<UCombatWarpingComponent> CombatWarpingComponent;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Combat", meta = (AllowPrivateAccess = "true"))
+	TObjectPtr<UCombatWarpingComponent> CombatWarping;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Combat", meta=(AllowPrivateAccess="true"))
 	TObjectPtr<UWidgetComponent> HealthBarComponent;

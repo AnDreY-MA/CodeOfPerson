@@ -9,7 +9,8 @@ public class CodeOfPerson : ModuleRules
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 	
 		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "EnhancedInput", 
-			"CombatAbilitiesSystem", "CombatEnemySystem", "MamontUI", "AnimGraphRuntime", "GameplayTags", "GameplayAbilities", "CommonInput", "Niagara", "NiagaraCore", "AIModule"});
+			"CombatAbilitiesSystem", "CombatEnemySystem", "MamontUI", "AnimGraphRuntime", "GameplayTags", 
+			"GameplayAbilities", "CommonInput", "Niagara", "NiagaraCore", "AIModule", "Nody_FootStep"});
 
 		PrivateDependencyModuleNames.AddRange(new string[] { "ModularGameplay", "GameFeatures", "UMG" });
 	}

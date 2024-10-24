@@ -8,13 +8,14 @@
 #include "GameplayEffectTypes.h"
 #include "ModularsActors/ModularPlayerController.h"
 #include "GenericTeamAgentInterface.h"
+#include "Interface/PersonStateComponentInterface.h"
 #include "PlayerControllerBase.generated.h"
 
 class ACodePersonCharacter;
 class URoundWidget;
 
 UCLASS()
-class CODEOFPERSON_API APlayerControllerBase : public AModularPlayerController, public IGenericTeamAgentInterface
+class CODEOFPERSON_API APlayerControllerBase : public AModularPlayerController, public IGenericTeamAgentInterface, public IPersonStateComponentInterface
 {
 	GENERATED_BODY()
 
