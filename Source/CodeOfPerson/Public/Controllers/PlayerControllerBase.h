@@ -11,6 +11,7 @@
 #include "Interface/PersonStateComponentInterface.h"
 #include "PlayerControllerBase.generated.h"
 
+
 class ACodePersonCharacter;
 class URoundWidget;
 
@@ -42,4 +43,5 @@ private:
 	FGameplayAttribute HealthAttribute;
 	UPROPERTY(Transient)
 	TObjectPtr<UCommonInputSubsystem> InputSubsystem;
+
 };

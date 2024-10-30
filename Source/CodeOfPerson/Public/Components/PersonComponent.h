@@ -39,7 +39,7 @@ private:
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Persons", meta = (AllowPrivateAccess=true))
 	FGameplayTag CurrentPerson;
-
+		
 	UPROPERTY()
 	TWeakObjectPtr<class ACharacter> PlayerCharacter;
 
