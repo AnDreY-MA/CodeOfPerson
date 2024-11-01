@@ -14,7 +14,7 @@ class CODEOFPERSON_API UInventoryComponent : public UActorComponent
 	GENERATED_BODY()
 
 public:	
-	explicit UInventoryComponent();
+	explicit UInventoryComponent(const FObjectInitializer& InObjectInitializer = FObjectInitializer::Get());
 
 	UFUNCTION(BlueprintCallable)
 	void AddKeyItemName(const FGameplayTag& InKeyItemName);
@@ -31,5 +31,8 @@ public:
 private:
 	UPROPERTY()
 	FGameplayTag KeyItemName;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Inventory", meta = (AllowPrivateAccess = true))
+	TMap<FGameplayTag, int32> Items;
 		
 };

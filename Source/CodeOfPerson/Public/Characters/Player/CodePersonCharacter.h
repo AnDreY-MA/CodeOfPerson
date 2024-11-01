@@ -8,6 +8,7 @@
 #include "InputActionValue.h"
 #include "Characters/CharacterBase.h"
 #include "Interfaces/CombatWarpComponentInterface.h"
+#include "Interface/InventoryComponentInterface.h"
 #include "CodePersonCharacter.generated.h"
 
 class URoundWidget;
@@ -18,7 +19,7 @@ class UCameraComponent;
 class USpringArmComponent;
 
 UCLASS(Blueprintable, Abstract)
-class ACodePersonCharacter : public ACharacterBase, public ICombatWarpComponentInterface
+class ACodePersonCharacter : public ACharacterBase, public ICombatWarpComponentInterface, public IInventoryComponentInterface
 {
 	GENERATED_BODY()
 

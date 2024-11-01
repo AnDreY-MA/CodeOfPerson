@@ -3,10 +3,11 @@
 
 #include "Interaction/Items/InventoryComponent.h"
 
-UInventoryComponent::UInventoryComponent()
+UInventoryComponent::UInventoryComponent(const FObjectInitializer& InObjectInitializer) :
+	Super(InObjectInitializer)
 {
 	PrimaryComponentTick.bCanEverTick = false;
-
+	PrimaryComponentTick.SetTickFunctionEnable(false);
 }
 
 void UInventoryComponent::AddKeyItemName(const FGameplayTag& InKeyItemName)
