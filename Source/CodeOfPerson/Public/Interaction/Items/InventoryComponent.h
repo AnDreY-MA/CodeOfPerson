@@ -23,6 +23,9 @@ public:
 	void RemoveItem(const FGameplayTag& InItemTag);
 
 	UFUNCTION(BlueprintCallable)
+	void AddItem(const FGameplayTag& InItemTag, const int32 inAmount);
+
+	UFUNCTION(BlueprintCallable)
 	FORCEINLINE FGameplayTag GetKeyItem() const
 		{
 		return KeyItemName;

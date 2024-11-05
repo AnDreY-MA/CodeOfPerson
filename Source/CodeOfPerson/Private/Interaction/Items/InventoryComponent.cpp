@@ -21,5 +21,9 @@ void UInventoryComponent::RemoveItem(const FGameplayTag& InItemTag)
 	{
 		KeyItemName = FGameplayTag();
 	}
-	
+}
+
+void UInventoryComponent::AddItem(const FGameplayTag& InItemTag, const int32 inAmount)
+{
+	Items.Add(InItemTag, inAmount);
 }
