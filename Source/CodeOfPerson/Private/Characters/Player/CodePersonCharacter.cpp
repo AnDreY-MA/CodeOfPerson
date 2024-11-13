@@ -51,11 +51,6 @@ ACodePersonCharacter::ACodePersonCharacter(const FObjectInitializer& InInitializ
 	HealthBarComponent = CreateDefaultSubobject<UWidgetComponent>("HealthBarComponent");
 	HealthBarComponent->SetupAttachment(RootComponent);
 
-	RangardMeshComponent = CreateDefaultSubobject<USkeletalMeshComponent>("RangardMeshComponent");
-	RangardMeshComponent->SetupAttachment(RootComponent);
-	RangardMeshComponent->SetVisibility(false);
-
-	// Activate ticking in order to update the cursor every frame.
 	PrimaryActorTick.bCanEverTick = true;
 	PrimaryActorTick.bStartWithTickEnabled = true;
 	

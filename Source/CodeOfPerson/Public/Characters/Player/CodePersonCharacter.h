@@ -45,9 +45,6 @@ private:
 	void CheckJumpHeigth();
 
 private:
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Mesh, meta = (AllowPrivateAccess = "true"))
-	TObjectPtr<USkeletalMeshComponent> RangardMeshComponent;
-
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
 	TObjectPtr<UCameraComponent> TopDownCameraComponent;
 
