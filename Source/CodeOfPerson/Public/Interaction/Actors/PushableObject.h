@@ -15,7 +15,6 @@ public:
 	explicit APushableObject();
 
 protected:
-	virtual void BeginPlay() override;
 
 	UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
 	int32 FindClosestPushTransformIndex(const FVector2D& InInstigatorLocation, const float InPushRange);

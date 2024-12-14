@@ -37,7 +37,7 @@
 		},
 		{
 			"Name": "DialogueTree",
-			"Enabled": true,
+			"Enabled": false,
 			"MarketplaceURL": "https://com.epicgames.launcher://ue/marketplace/product/af018f2268eb426bad40d8b70e255505/"
 		},
 		{
@@ -98,10 +98,6 @@
 		},
 		{
 			"Name": "RigLogic",
-			"Enabled": true
-		},
-		{
-			"Name": "MamontDialogue",
 			"Enabled": true
 		},
 		{
@@ -197,6 +193,10 @@
 		{
 			"Name": "OpenImageDenoise",
 			"Enabled": false
+		},
+		{
+			"Name": "GameplayBehaviors",
+			"Enabled": true
 		}
 	]
 }

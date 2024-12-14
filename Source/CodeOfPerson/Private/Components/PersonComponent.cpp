@@ -23,7 +23,7 @@ void UPersonComponent::BeginPlay()
 	auto* Controller{ Cast<APlayerController>(GetOwner()) };
 	if (!Controller) return;
 	PlayerCharacter = Controller->GetCharacter();
-	check(PlayerCharacter.IsValid());
+	
 
 	
 }

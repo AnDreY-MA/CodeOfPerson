@@ -9,15 +9,8 @@ APushableObject::APushableObject()
 
 }
 
-void APushableObject::BeginPlay()
-{
-	Super::BeginPlay();
-	
-}
-
 int32 APushableObject::FindClosestPushTransformIndex_Implementation(const FVector2D& InInstigatorLocation, const float InPushRange)
 {
 
 	return 0;
 }
-
