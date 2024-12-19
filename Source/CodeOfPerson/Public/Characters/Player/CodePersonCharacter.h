@@ -9,6 +9,9 @@
 #include "Characters/CharacterBase.h"
 #include "Interfaces/CombatWarpComponentInterface.h"
 #include "Interface/InventoryComponentInterface.h"
+#include "Interface/PlayerCharacterInterface.h"
+#include "Interfaces/CombatComponentInterface.h"
+#include "AbilitySystemInterface.h"
 #include "CodePersonCharacter.generated.h"
 
 class URoundWidget;
@@ -17,9 +20,11 @@ class UCameraControlComponent;
 class UCombatWarpingComponent;
 class UCameraComponent;
 class USpringArmComponent;
+class UCombatSystemComponent;
 
 UCLASS(Blueprintable, Abstract)
-class ACodePersonCharacter : public ACharacterBase, public ICombatWarpComponentInterface, public IInventoryComponentInterface
+class ACodePersonCharacter : public ACharacterBase, public ICombatWarpComponentInterface, public IInventoryComponentInterface, public IPlayerCharacterInterface,
+	public ICombatComponentInterface, public IAbilitySystemInterface
 {
 	GENERATED_BODY()
 
@@ -38,6 +43,30 @@ public:
 
 	virtual UCombatWarpingComponent* GetCombatWarpingComponent_Implementation() const override;
 
+	// IPlayerCharacterInterface Implementation
+
+	void SetCanJump_Implementation(const bool InValue)
+	{
+		bCanJumpCustom = InValue;
+	}
+
+	const bool IsCanJump_Implementation() const
+	{
+		return bCanJumpCustom;
+	}
+
+	// IPlayerCharacterInterface
+
+
+	// ICombatComponentInterface Implementation
+	UCombatSystemComponent* GetCombatSystemComponent_Implementation() const
+	{
+		return CombatComponent.Get();
+	}
+	// End ICombatComponentInterface
+
+	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
+
 private:
 	UFUNCTION(BlueprintCallable, Category="Movement")
 	void Move(const FInputActionValue& Value);
@@ -54,12 +83,15 @@ private:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Combat", meta = (AllowPrivateAccess = "true"))
 	TObjectPtr<UCombatWarpingComponent> CombatWarping;
 
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Combat", meta = (AllowPrivateAccess = "true"))
+	TObjectPtr<UCombatSystemComponent> CombatComponent;
+
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Combat", meta=(AllowPrivateAccess="true"))
 	TObjectPtr<UWidgetComponent> HealthBarComponent;
 
 	UPROPERTY(EditDefaultsOnly)
 	TObjectPtr<UCameraControlComponent> CameraControlComponent;
-	
+
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="HealtWidget", meta=(AllowPrivateAccess="true"))
 	TObjectPtr<URoundWidget> HealthBarWidget;
 
@@ -73,6 +105,9 @@ private:
 	TEnumAsByte<ETraceTypeQuery> CheckJumpTraceType;
 	/*UPROPERTY(EditDefaultsOnly, Category = "Movement|Jump")
 	TEnumAsByte<EDrawDebugTrace::Type> CheckJumpDebug;*/
+
+	UPROPERTY()
+	bool bCanJumpCustom{ true };
 
 	friend class APlayerControllerBase;
 	

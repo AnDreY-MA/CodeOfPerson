@@ -8,7 +8,7 @@
 #include "InventoryComponent.generated.h"
 
 
-UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
+UCLASS(meta=(BlueprintSpawnableComponent))
 class CODEOFPERSON_API UInventoryComponent : public UActorComponent
 {
 	GENERATED_BODY()
@@ -23,12 +23,17 @@ public:
 	void RemoveItem(const FGameplayTag& InItemTag);
 
 	UFUNCTION(BlueprintCallable)
-	void AddItem(const FGameplayTag& InItemTag, const int32 inAmount);
+	void AddItem(const FGameplayTag& InItemTag, const int32 inAmount = 1);
 
 	UFUNCTION(BlueprintCallable)
 	FORCEINLINE FGameplayTag GetKeyItem() const
 		{
 		return KeyItemName;
+	}
+	UFUNCTION(BlueprintPure)
+	bool HasItem(const FGameplayTag& InItem)
+	{
+		return Items.Contains(InItem);
 	}
 
 private:

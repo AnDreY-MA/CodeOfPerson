@@ -45,6 +45,7 @@ ACodePersonCharacter::ACodePersonCharacter(const FObjectInitializer& InInitializ
 	TopDownCameraComponent->bUsePawnControlRotation = false; // Camera does not rotate relative to arm
 
 	CombatWarping = CreateDefaultSubobject<UCombatWarpingComponent>("CombatWarp");
+	CombatComponent = CreateDefaultSubobject<UCombatSystemComponent>("CombatSystemComponent");
 
 	CameraControlComponent = CreateDefaultSubobject<UCameraControlComponent>("CameraControlComponent");
 
@@ -74,12 +75,20 @@ void ACodePersonCharacter::BeginPlay()
 
 void ACodePersonCharacter::Tick(float DeltaTime)
 {
-	CheckJumpHeigth();
+	if (bCanJumpCustom)
+	{
+		CheckJumpHeigth();
+	}
 }
 
 UCombatWarpingComponent* ACodePersonCharacter::GetCombatWarpingComponent_Implementation() const
 {
 	return CombatWarping;
+}
+
+UAbilitySystemComponent* ACodePersonCharacter::GetAbilitySystemComponent() const
+{
+	return CombatComponent.Get();
 }
 
 void ACodePersonCharacter::Move(const FInputActionValue& Value)
