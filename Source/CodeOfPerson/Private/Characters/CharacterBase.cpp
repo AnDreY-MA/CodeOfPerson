@@ -3,6 +3,8 @@
 
 #include "Characters/CharacterBase.h"
 
+#include UE_INLINE_GENERATED_CPP_BY_NAME(CharacterBase)
+
 ACharacterBase::ACharacterBase(const FObjectInitializer& InInitializer) :
 	Super(InInitializer)
 {

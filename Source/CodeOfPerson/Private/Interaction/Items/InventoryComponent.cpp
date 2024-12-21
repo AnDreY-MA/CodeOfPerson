@@ -15,15 +15,27 @@ void UInventoryComponent::AddKeyItemName(const FGameplayTag& InKeyItemName)
 	KeyItemName = InKeyItemName;
 }
 
-void UInventoryComponent::RemoveItem(const FGameplayTag& InItemTag)
+void UInventoryComponent::RemoveItem(const FGameplayTag& InItemTag, const int32 inAmount)
 {
-	if(KeyItemName == InItemTag)
+	Items[InItemTag] -= inAmount;
+	if (Items[InItemTag] == 0)
 	{
-		KeyItemName = FGameplayTag();
+		Items.Remove(InItemTag);
 	}
+
+	if (OnItemAdded.IsBound())
+	{
+		OnItemAdded.Broadcast(InItemTag, inAmount);
+	}
+
 }
 
 void UInventoryComponent::AddItem(const FGameplayTag& InItemTag, const int32 inAmount)
 {
 	Items.Add(InItemTag, inAmount);
+	if (OnItemAdded.IsBound())
+	{
+		OnItemAdded.Broadcast(InItemTag, inAmount);
+	}
+	
 }

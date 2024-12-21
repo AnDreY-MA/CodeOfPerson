@@ -6,12 +6,10 @@
 #include "CommonButtonBase.h"
 #include "CommonInputSubsystem.h"
 #include "InputActionValue.h"
-#include "Characters/CharacterBase.h"
 #include "Interfaces/CombatWarpComponentInterface.h"
 #include "Interface/InventoryComponentInterface.h"
 #include "Interface/PlayerCharacterInterface.h"
-#include "Interfaces/CombatComponentInterface.h"
-#include "AbilitySystemInterface.h"
+#include "Characters/CombatCharacterBase.h"
 #include "CodePersonCharacter.generated.h"
 
 class URoundWidget;
@@ -20,11 +18,9 @@ class UCameraControlComponent;
 class UCombatWarpingComponent;
 class UCameraComponent;
 class USpringArmComponent;
-class UCombatSystemComponent;
 
 UCLASS(Blueprintable, Abstract)
-class ACodePersonCharacter : public ACharacterBase, public ICombatWarpComponentInterface, public IInventoryComponentInterface, public IPlayerCharacterInterface,
-	public ICombatComponentInterface, public IAbilitySystemInterface
+class ACodePersonCharacter : public ACombatCharacterBase, public ICombatWarpComponentInterface, public IInventoryComponentInterface, public IPlayerCharacterInterface
 {
 	GENERATED_BODY()
 
@@ -58,15 +54,6 @@ public:
 	// IPlayerCharacterInterface
 
 
-	// ICombatComponentInterface Implementation
-	UCombatSystemComponent* GetCombatSystemComponent_Implementation() const
-	{
-		return CombatComponent.Get();
-	}
-	// End ICombatComponentInterface
-
-	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
-
 private:
 	UFUNCTION(BlueprintCallable, Category="Movement")
 	void Move(const FInputActionValue& Value);
@@ -82,9 +69,6 @@ private:
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Combat", meta = (AllowPrivateAccess = "true"))
 	TObjectPtr<UCombatWarpingComponent> CombatWarping;
-
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Combat", meta = (AllowPrivateAccess = "true"))
-	TObjectPtr<UCombatSystemComponent> CombatComponent;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Combat", meta=(AllowPrivateAccess="true"))
 	TObjectPtr<UWidgetComponent> HealthBarComponent;

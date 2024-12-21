@@ -12,7 +12,7 @@ class CODEOFPERSON_API ACharacterBase : public AModularCharacter
 	GENERATED_BODY()
 
 public:
-	explicit ACharacterBase(const FObjectInitializer& InInitializer);
+	explicit ACharacterBase(const FObjectInitializer& InInitializer = FObjectInitializer::Get());
 
 protected:	
 	virtual void BeginPlay() override;

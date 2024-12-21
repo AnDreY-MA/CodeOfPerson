@@ -7,6 +7,7 @@
 #include "GameplayTagContainer.h"
 #include "InventoryComponent.generated.h"
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnItemsUpdated, const FGameplayTag&, Item, int32, Count);
 
 UCLASS(meta=(BlueprintSpawnableComponent))
 class CODEOFPERSON_API UInventoryComponent : public UActorComponent
@@ -16,11 +17,16 @@ class CODEOFPERSON_API UInventoryComponent : public UActorComponent
 public:	
 	explicit UInventoryComponent(const FObjectInitializer& InObjectInitializer = FObjectInitializer::Get());
 
+	UPROPERTY(BlueprintAssignable)
+	FOnItemsUpdated OnItemAdded;
+	UPROPERTY(BlueprintAssignable)
+	FOnItemsUpdated OnItemRemoved;
+
 	UFUNCTION(BlueprintCallable)
 	void AddKeyItemName(const FGameplayTag& InKeyItemName);
 
 	UFUNCTION(BlueprintCallable)
-	void RemoveItem(const FGameplayTag& InItemTag);
+	void RemoveItem(const FGameplayTag& InItemTag, const int32 inAmount = 1);
 
 	UFUNCTION(BlueprintCallable)
 	void AddItem(const FGameplayTag& InItemTag, const int32 inAmount = 1);

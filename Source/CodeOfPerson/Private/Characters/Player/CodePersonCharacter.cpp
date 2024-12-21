@@ -6,13 +6,15 @@
 #include "Camera/CameraComponent.h"
 #include "Components/CameraControlComponent.h"
 #include "Components/CapsuleComponent.h"
-#include "Components/CombatSystemComponent.h"
 #include "Components/CombatWarpingComponent.h"
 #include "Components/WidgetComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Kismet/KismetMathLibrary.h"
 #include "UMG/Widgets/RoundWidget.h"
+
+#include UE_INLINE_GENERATED_CPP_BY_NAME(CodePersonCharacter)
+
 
 ACodePersonCharacter::ACodePersonCharacter(const FObjectInitializer& InInitializer) :
 	Super(InInitializer), DistanceCkeckJump(50.0), HeigthJump(150.0), MinSpeedJump(300.0) //, CheckJumpDebug(EDrawDebugTrace::None)
@@ -45,7 +47,6 @@ ACodePersonCharacter::ACodePersonCharacter(const FObjectInitializer& InInitializ
 	TopDownCameraComponent->bUsePawnControlRotation = false; // Camera does not rotate relative to arm
 
 	CombatWarping = CreateDefaultSubobject<UCombatWarpingComponent>("CombatWarp");
-	CombatComponent = CreateDefaultSubobject<UCombatSystemComponent>("CombatSystemComponent");
 
 	CameraControlComponent = CreateDefaultSubobject<UCameraControlComponent>("CameraControlComponent");
 
@@ -63,7 +64,7 @@ void ACodePersonCharacter::BeginPlay()
 
 	auto* AnimInstance{Cast<UCombatAnimInstance>(GetMesh()->GetAnimInstance())};
 	
-	AnimInstance->InitializeWithAbilitySystem(FindComponentByClass<UCombatSystemComponent>());
+	AnimInstance->InitializeWithAbilitySystem(GetAbilitySystemComponent());
 
 	if(auto* Widget{HealthBarComponent->GetWidget()}; Widget)
 	{
@@ -84,11 +85,6 @@ void ACodePersonCharacter::Tick(float DeltaTime)
 UCombatWarpingComponent* ACodePersonCharacter::GetCombatWarpingComponent_Implementation() const
 {
 	return CombatWarping;
-}
-
-UAbilitySystemComponent* ACodePersonCharacter::GetAbilitySystemComponent() const
-{
-	return CombatComponent.Get();
 }
 
 void ACodePersonCharacter::Move(const FInputActionValue& Value)

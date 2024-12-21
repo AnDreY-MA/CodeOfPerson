@@ -13,6 +13,10 @@ class CODEOFPERSON_API UDeathAbility : public UGameplayAbility
 {
 	GENERATED_BODY()
 
+public:
+	virtual void EndAbility(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo, 
+		const FGameplayAbilityActivationInfo ActivationInfo, bool bReplicateEndAbility, bool bWasCancelled) override;
+
 private:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Loot", meta = (AllowPrivateAccess=true))
 	TSoftClassPtr<ALootActor> LootActorClass;
