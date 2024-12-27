@@ -19,7 +19,7 @@ class UCombatWarpingComponent;
 class UCameraComponent;
 class USpringArmComponent;
 
-UCLASS(Blueprintable, Abstract)
+UCLASS(Blueprintable )
 class ACodePersonCharacter : public ACombatCharacterBase, public ICombatWarpComponentInterface, public IInventoryComponentInterface, public IPlayerCharacterInterface
 {
 	GENERATED_BODY()

@@ -201,6 +201,10 @@
 		{
 			"Name": "PreLoadScreenMoviePlayer",
 			"Enabled": true
+		},
+		{
+			"Name": "AudioGameplay",
+			"Enabled": true
 		}
 	]
 }

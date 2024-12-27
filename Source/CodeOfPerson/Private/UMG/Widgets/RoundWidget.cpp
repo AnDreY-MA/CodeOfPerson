@@ -10,7 +10,7 @@ void URoundWidget::NativeConstruct()
 {
 	Super::NativeConstruct();
 
-	SetPercent(0.75f);
+	SetPercent(1.f);
 	
 }
 

@@ -68,7 +68,6 @@ void ACodePersonCharacter::BeginPlay()
 
 	if(auto* Widget{HealthBarComponent->GetWidget()}; Widget)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("EREWID"));
 		HealthBarWidget = Cast<URoundWidget>(Widget);
 	}
 

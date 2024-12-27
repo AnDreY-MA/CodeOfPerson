@@ -22,6 +22,9 @@ public:
 	UPROPERTY(BlueprintAssignable)
 	FOnItemsUpdated OnItemRemoved;
 
+	UPROPERTY(BlueprintAssignable)
+	FOnItemsUpdated OnItemsUpdated;
+
 	UFUNCTION(BlueprintCallable)
 	void AddKeyItemName(const FGameplayTag& InKeyItemName);
 
@@ -40,6 +43,12 @@ public:
 	bool HasItem(const FGameplayTag& InItem)
 	{
 		return Items.Contains(InItem);
+	}
+
+	UFUNCTION(BlueprintPure, Category = "Inventory")
+	const int32 GetItemAmount(const FGameplayTag& InItem) const
+	{
+		return *Items.Find(InItem);
 	}
 
 private:

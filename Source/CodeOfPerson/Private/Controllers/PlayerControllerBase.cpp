@@ -27,13 +27,8 @@ void APlayerControllerBase::BeginPlay()
 			this, &APlayerControllerBase::OnHealthChanged);
 	}
 
-	InputSubsystem = UCommonInputSubsystem::Get(GetLocalPlayer());
-}
-
-void APlayerControllerBase::Tick(float DeltaSeconds)
-{
-	Super::Tick(DeltaSeconds);
-
+	//FInputModeGameOnly InputMode;
+	//SetInputMode(InputMode/*InputMode.SetConsumeCaptureMouseDown(false)*/);
 }
 
 void APlayerControllerBase::OnHealthChanged(const FOnAttributeChangeData& OnAttributeChangeData)
