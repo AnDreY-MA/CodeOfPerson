@@ -113,7 +113,7 @@ void UPersonComponent::MeshLoaded(FSoftObjectPath InPath, FGameplayTag InPersonT
 	if (auto* Mesh{ Cast<USkeletalMesh>(MeshObject) }; Mesh)
 	{
 		auto* MeshComponent{ PlayerCharacter->GetMesh() };
-		TArray<USceneComponent*> ChildComponents;
+		/*TArray<USceneComponent*> ChildComponents;
 		MeshComponent->GetChildrenComponents(true, ChildComponents);
 		for (auto* Comp : ChildComponents)
 		{
@@ -121,7 +121,7 @@ void UPersonComponent::MeshLoaded(FSoftObjectPath InPath, FGameplayTag InPersonT
 			{
 				Comp->SetVisibility(!Comp->IsVisible());
 			}
-		}
+		}*/
 		MeshComponent->SetSkeletalMesh(Mesh);
 		auto* AnimInstance{ MeshComponent->GetAnimInstance() };
 		if (AnimInstance->Implements<UPersonAnimInstanceInterface>())
