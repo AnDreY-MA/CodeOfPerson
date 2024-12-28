@@ -4,11 +4,10 @@
 
 #include "CoreMinimal.h"
 #include "Engine/DataAsset.h"
+#include "Components/DataAbilitySystemComponent.h"
 #include "PersonData.generated.h"
 
-/**
- * 
- */
+
 UCLASS()
 class CODEOFPERSON_API UPersonData : public UPrimaryDataAsset
 {
@@ -19,14 +18,29 @@ public:
 
 	virtual FPrimaryAssetId GetPrimaryAssetId() const override;
 
-	FORCEINLINE FSoftObjectPath GetActionTable() const
+	FORCEINLINE FSoftObjectPath GetActionTableSoft() const
 	{
-		return ActionTable.ToSoftObjectPath();
+		return ActionTableSoft.ToSoftObjectPath();
 	}
 
-	FORCEINLINE FSoftObjectPath GetSkeletalMesh() const
+	FORCEINLINE FSoftObjectPath GetSkeletalMeshSoft() const
 	{
-		return Mesh.ToSoftObjectPath();
+		return MeshSoft.ToSoftObjectPath();
+	}
+
+	FORCEINLINE UDataTable* GetActionTable() const
+	{
+		return ActionTable;
+	}
+
+	FORCEINLINE USkeletalMesh* GetSkeletalMesh() const
+	{
+		return Mesh;
+	}
+
+	FORCEINLINE FCombatAttributeData GetAttribute()
+	{
+		return AttributeData;
 	}
 	
 private:
@@ -34,9 +48,19 @@ private:
 	FPrimaryAssetType Type;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "PersonData", meta = (AssetBundles="SoftData", AllowPrivateAccess="true"))
-	TSoftObjectPtr<UDataTable> ActionTable;
+	TSoftObjectPtr<UDataTable> ActionTableSoft;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "PersonData", meta = (AssetBundles = "SoftData", AllowPrivateAccess = "true"))
-	TSoftObjectPtr<USkeletalMesh> Mesh;
+	TSoftObjectPtr<USkeletalMesh> MeshSoft;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "PersonData", meta = (AssetBundles = "Data", AllowPrivateAccess = "true"))
+	TObjectPtr<UDataTable> ActionTable;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "PersonData", meta = (AssetBundles = "Data", AllowPrivateAccess = "true"))
+	TObjectPtr<USkeletalMesh> Mesh;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "PersonData", meta = (AssetBundles = "Data", AllowPrivateAccess = "true"))
+	FCombatAttributeData AttributeData;
+
 
 };

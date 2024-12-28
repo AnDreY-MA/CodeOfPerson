@@ -9,6 +9,8 @@
 #include <ranges>
 #include <Interface/PersonAnimInstanceInterface.h>
 
+#include UE_INLINE_GENERATED_CPP_BY_NAME(PersonComponent)
+
 UPersonComponent::UPersonComponent(const FObjectInitializer& InInitializer) :
 	Super(InInitializer)
 {
@@ -24,8 +26,17 @@ void UPersonComponent::BeginPlay()
 	if (!Controller) return;
 	PlayerCharacter = Controller->GetCharacter();
 	
+}
 
-	
+void UPersonComponent::SwitchPersonSync(const FGameplayTag& InPersonTag)
+{
+	if (CurrentPerson == InPersonTag)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("PersonComponent: same person tags"));
+		return;
+	}
+
+	UPersonData* Data = *PersonsMap.Find(InPersonTag);
 }
 
 void UPersonComponent::SwitchPerson(const FGameplayTag& InPersonTag)
@@ -41,27 +52,39 @@ void UPersonComponent::SwitchPerson(const FGameplayTag& InPersonTag)
 		UPersonData* Data = *PersonsMap.Find(InPersonTag);
 		auto& Streamable = Manager->GetStreamableManager();
 		//UPersonData* Data = Manager->GetPrimaryAssetObject<UPersonData>(AssetId);
-		if (!IsValid(Data))
+		if (!IsValid(Data) || !Data->GetActionTableSoft().IsValid() || !Data->GetSkeletalMeshSoft().IsValid())
 		{
 			UE_LOG(LogTemp, Warning, TEXT("UPersonComponent: Data is not valid"));
 			return;
 		}
 		FStreamableDelegate TableDelegate;
-		const FSoftObjectPath TablePath{ Data->GetActionTable()};
+		const FSoftObjectPath TablePath{ Data->GetActionTableSoft()};
 		TableDelegate.BindUObject(this, &UPersonComponent::TableLoaded, TablePath);
 		Streamable.RequestAsyncLoad(TablePath, TableDelegate);
 
 		FStreamableDelegate MeshDelegate;
-		const FSoftObjectPath MeshPath{ Data->GetSkeletalMesh() };
+		const FSoftObjectPath MeshPath{ Data->GetSkeletalMeshSoft() };
 		MeshDelegate.BindUObject(this, &UPersonComponent::MeshLoaded, MeshPath, InPersonTag);
 		Streamable.RequestAsyncLoad(MeshPath, MeshDelegate);
 
+		if (auto* CombatComponent{ ICombatComponentInterface::Execute_GetCombatSystemComponent(PlayerCharacter.Get()) }; CombatComponent)
+		{
+			CombatComponent->RemoveAllSpawnedAttributes();
+			CombatComponent->UpdateAttribute({ Data->GetAttribute() });
+		}
 	}
+
 }
 
 void UPersonComponent::TableLoaded(FSoftObjectPath InPath)
 {
 	FSoftObjectPtr TablePtr = FSoftObjectPtr(InPath);
+	if (!TablePtr.IsValid())
+	{
+		UE_LOG(LogTemp, Warning, TEXT("UPersonComponent: TablePtr is not valid"));
+		return;
+	}
+
 	UObject* TableObject{ TablePtr.Get() };
 	if (!TableObject)
 	{

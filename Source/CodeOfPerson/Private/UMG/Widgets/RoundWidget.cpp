@@ -6,6 +6,8 @@
 #include "Components/Image.h"
 #include "Kismet/KismetMaterialLibrary.h"
 
+#include UE_INLINE_GENERATED_CPP_BY_NAME(RoundWidget)
+
 void URoundWidget::NativeConstruct()
 {
 	Super::NativeConstruct();

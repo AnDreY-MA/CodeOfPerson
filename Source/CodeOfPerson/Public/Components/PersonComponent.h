@@ -23,6 +23,9 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void SwitchPerson(const FGameplayTag& InPersonTag);
 
+	UFUNCTION(BlueprintCallable)
+	void SwitchPersonSync(const FGameplayTag& InPersonTag);
+
 	UPROPERTY(BlueprintAssignable, Category = "Persons")
 	FOnPersonChanged OnPersonChanged;
 
